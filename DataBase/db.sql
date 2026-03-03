@@ -47,11 +47,12 @@ insert product (nombre, descripcion, stock, id_categoria, activo) values
 ('Bicicleta de Montaña', 'Cuadro de aluminio, 21 velocidades', 5, 4, 0);
 
 create procedure sp_getAllProducts()
-	select p.*, c.nombre, c.descripcion from product p
-    join categoria c on p.id_categoria = c.id_categoria;
+	select p.*, c.nombre as Categoria , c.descripcion as DetallCate from product p
+    join categoria c on p.id_categoria = c.id_categoria
+    order by p.id_product asc;
 
 create procedure sp_getByIdProduct(_id int)
-	select p.*, c.nombre, c.descripcion from product p
+	select p.*, c.nombre as Categoria , c.descripcion as DetallCate from product p
     join categoria c on p.id_categoria = c.id_categoria
     where id_product = _id;
     
