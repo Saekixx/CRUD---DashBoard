@@ -54,7 +54,12 @@ const ProductController = {
         }
 
         try {
-            await Product.update(id, name, description, stock, id_categoria);
+            const result = await Product.update(id, name, description, stock, id_categoria);
+
+            if (result.affectedRows === 0) {
+                return res.status(404).json({ message: 'Producto no encontrado' });
+            }
+            
             res.status(200).json({ message: 'Producto actualizado exitosamente' });
         } catch (error) {
             res.status(500).json({ message: 'Error al actualizar producto', error: error.message });
@@ -64,7 +69,12 @@ const ProductController = {
     deleteProduct: async (req, res) => {
         const { id } = req.params;
         try {
-            await Product.delete(id);
+            const result = await Product.delete(id);
+
+             if (result.affectedRows === 0) {
+                return res.status(404).json({ message: 'Producto no encontrado' });
+            }
+
             res.status(200).json({ message: 'Producto eliminado exitosamente' });
         } catch (error) {
             res.status(500).json({ message: 'Error al eliminar producto', error: error.message });
