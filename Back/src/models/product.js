@@ -1,20 +1,27 @@
 import db from '../config/conexion.js';
-import { validate } from '../validations/product.validations.js';
 
 class Product {
-    constructor(Data){
-        // Validar los datos antes de asignarlos
-        const validation = validate(Data);
-        if(!validation.status) throw new Error(validation.message);
-        
-        this.id = Data.id_product;
-        this.name = Data.nombre;
-        this.description = Data.descripcion;
-        this.stock = Data.stock;
-        this.category = Data.categoria;
+    static async getAll() {
+        const [rows] = await db.query('CALL sp_getAllProducts');
+        return rows;
     }
 
-    getAllProducts(){
+    static async getById(id) {
+        const [rows] = await db.query('CALL sp_getByIdProduct(?)', [id]);
+        return rows[0];
+    }
 
+    static async create(name, description, stock, id_categoria) {
+        return await db.query('CALL sp_createProduct(?, ?, ?, ?)', [name, description, stock, id_categoria]);
+    }
+
+    static async update(id, name, description, stock, id_categoria) {
+        return await db.query('CALL sp_updateProduct(?, ?, ?, ?, ?)', [id, name, description, stock, id_categoria]);
+    }
+
+    static async delete(id) {
+        return await db.query('CALL sp_deleteProduct(?)', [id]); 
     }
 }
+
+export default Product;
