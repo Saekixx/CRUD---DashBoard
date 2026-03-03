@@ -14,6 +14,11 @@ class DataBase {
     })
         DataBase.instance = this;
     }
+
+    async query(sql, params) {
+        const [rows] = await this.pool.execute(sql, params);
+        return rows;
+    }
 }
 
 const instance = new DataBase();
