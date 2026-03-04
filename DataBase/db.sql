@@ -48,8 +48,13 @@ insert product (nombre, descripcion, stock, id_categoria, activo) values
 
 create procedure sp_getAllProducts()
 	select p.*, c.nombre as Categoria , c.descripcion as DetallCate from product p
-    join categoria c on p.id_categoria = c.id_categoria
-    order by p.id_product asc;
+    join categoria c on p.id_categoria = c.id_categoria where activo = 0
+    order by p.id_product asc ;
+
+create procedure sp_getAllProductsInactivos()
+	select p.*, c.nombre as Categoria , c.descripcion as DetallCate from product p
+    join categoria c on p.id_categoria = c.id_categoria where activo = 1
+    order by p.id_product asc ;
 
 create procedure sp_getByIdProduct(_id int)
 	select p.*, c.nombre as Categoria , c.descripcion as DetallCate from product p
@@ -66,6 +71,9 @@ create procedure sp_updateProduct(_id_product int,_nombre char(40), _descripcion
     
 create procedure sp_deleteProduct(_id_product int)
 	update product set activo = 1 where id_product = _id_product;
+    
+
+
     
 
 

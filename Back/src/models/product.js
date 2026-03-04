@@ -6,6 +6,11 @@ class Product {
         return rows;
     }
 
+    static async getAllInactivos() {
+        const [rows] = await db.query('CALL sp_getAllProductsInactivos');
+        return rows;
+    }
+
     static async getById(id) {
         const [rows] = await db.query('CALL sp_getByIdProduct(?)', [id]);
         return rows[0];
@@ -22,6 +27,7 @@ class Product {
     static async delete(id) {
         return await db.query('CALL sp_deleteProduct(?)', [id]); 
     }
+
 }
 
 export default Product;
