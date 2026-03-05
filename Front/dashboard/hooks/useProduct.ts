@@ -11,6 +11,7 @@ import {
 
 export function useProduct() {
   const [products, setProducts] = useState<Product[]>([]);
+  const [productsInactive, setProductsInactive] = useState<Product[]>([]);
 
   useEffect(() => {
     getProducts().then((data) => {
@@ -18,7 +19,20 @@ export function useProduct() {
     });
   }, []);
 
+  useEffect(() => {
+    getProductsInactivos().then((data) => {
+      setProductsInactive(data);
+    });
+  }, []);
+
+  const removeProduct = async (id: number) => {
+    await deleteProduct(id);
+    setProducts((prev) => prev.filter((p) => p.id_product !== id));
+  };
+
   return {
     products,
+    productsInactive,
+    removeProduct,
   };
 }

@@ -10,14 +10,20 @@ import {
   TableCell,
   TableCaption,
 } from "../components/ui/table";
+import type { Product } from "../types/product";
 import { useProduct } from "../hooks/useProduct";
 import { Button } from "../components/ui/button";
-function TableProducts() {
-  const { products } = useProduct();
+
+interface TableProductsProps {
+  products: Product[];
+}
+
+function TableProducts({ products }: TableProductsProps) {
+  const { removeProduct } = useProduct();
 
   const InfoTableBody = products.map((p) => {
     return (
-      <TableRow>
+      <TableRow key={p.id_product}>
         <TableCell>{p.id_product}</TableCell>
         <TableCell>{p.nombre}</TableCell>
         <TableCell>{p.descripcion}</TableCell>
@@ -25,10 +31,15 @@ function TableProducts() {
         <TableCell>{p.Categoria}</TableCell>
         <TableCell>{p.activo ? "No" : "Si"}</TableCell>
         <TableCell className="flex gap-2">
-          <Button variant="warning" aria-label="Submit">
-            Editar
-          </Button>
-          <Button variant="destructive" aria-label="Delete">
+          <Button variant="warning">Editar</Button>
+          <Button
+            variant="destructive"
+            onClick={() => {
+              if (window.confirm("¿Estas seguro de inactivar el producto?")) {
+                removeProduct(p.id_product);
+              }
+            }}
+          >
             Eliminar
           </Button>
         </TableCell>
