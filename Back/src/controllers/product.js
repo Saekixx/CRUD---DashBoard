@@ -61,9 +61,10 @@ const ProductController = {
         stock,
         id_categoria,
       );
-      res
-        .status(201)
-        .json({ message: "Producto creado exitosamente", product: result });
+      res.status(201).json({
+        message: "Producto creado exitosamente",
+        id_product: result,
+      });
 
       console.log("Producto creado:", result);
     } catch (error) {

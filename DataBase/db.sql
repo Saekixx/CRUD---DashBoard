@@ -60,10 +60,17 @@ create procedure sp_getByIdProduct(_id int)
 	select p.*, c.nombre as Categoria , c.descripcion as DetallCate from product p
     join categoria c on p.id_categoria = c.id_categoria
     where id_product = _id;
-    
-create procedure sp_createProduct(_nombre char(40), _descripcion char(200), _stock int, _id_categoria int)
-	insert product(nombre,descripcion,stock,id_categoria) values (_nombre, _descripcion, _stock, _id_categoria);
-    select last_insert_id() as id_product;
+
+DELIMITER //
+create procedure sp_createProduct(_nombre CHAR(40),_descripcion CHAR(200),_stock INT,_id_categoria INT)
+begin
+  insert product(nombre, descripcion, stock, id_categoria)
+  values (_nombre, _descripcion, _stock, _id_categoria);
+
+  select last_insert_id() as id_product;
+end //
+
+DELIMITER ;
 
 create procedure sp_updateProduct(_id_product int,_nombre char(40), _descripcion char(200), _stock int, _id_categoria int)
 	update product 

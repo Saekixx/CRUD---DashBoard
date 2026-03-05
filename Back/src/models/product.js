@@ -17,22 +17,25 @@ class Product {
   }
 
   static async create(name, description, stock, id_categoria) {
-    return await db.query("CALL sp_createProduct(?, ?, ?, ?)", [
+    const [result] = await db.query("CALL sp_createProduct(?, ?, ?, ?)", [
       name,
       description,
       stock,
       id_categoria,
     ]);
+    return result[0].id_product;
   }
 
   static async update(id, name, description, stock, id_categoria) {
-    return await db.query("CALL sp_updateProduct(?, ?, ?, ?, ?)", [
+    const [result] = await db.execute("CALL sp_updateProduct(?, ?, ?, ?, ?)", [
       id,
       name,
       description,
       stock,
       id_categoria,
     ]);
+
+    return result;
   }
 
   static async delete(id) {
