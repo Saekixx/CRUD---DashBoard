@@ -1,9 +1,11 @@
 import { useState, useEffect, use } from "react";
 import type { Product } from "../types/product.ts";
+import type { ProductFormData } from "../types/productForm.ts";
 import {
   getProducts,
   getProductsInactivos,
   deleteProduct,
+  updateProduct,
   activateProduct,
 } from "../api/product.api";
 
@@ -37,10 +39,44 @@ export function useProduct() {
     setProducts((prev) => [...prev, { ...product, activo: false }]);
   };
 
+  const updateFormProduct = async (id: number, data: ProductFormData) => {
+    if (id === null || data.id_product === null) return;
+    await updateProduct(id, data);
+
+    setProducts((prev) =>
+      prev.map((p) =>
+        p.id_product === id
+          ? {
+              ...p,
+              nombre: data.name ?? p.nombre,
+              descripcion: data.description ?? p.descripcion,
+              stock: data.stock ?? p.stock,
+              id_categoria: data.id_categoria ?? p.id_categoria,
+            }
+          : p,
+      ),
+    );
+
+    setProductsInactive((prev) =>
+      prev.map((p) =>
+        p.id_product === id
+          ? {
+              ...p,
+              nombre: data.name,
+              descripcion: data.description,
+              stock: data.stock,
+              id_categoria: data.id_categoria,
+            }
+          : p,
+      ),
+    );
+  };
+
   return {
     products,
     productsInactive,
     removeProduct,
     activeProduct,
+    updateFormProduct,
   };
 }

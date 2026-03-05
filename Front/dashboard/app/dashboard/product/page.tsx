@@ -8,14 +8,13 @@ import { useProduct } from "@/hooks/useProduct";
 import { useFormProduct } from "@/hooks/useFormProduct";
 
 function page() {
-  const { products, productsInactive, activeProduct, removeProduct } =
+  const { products, productsInactive, activeProduct, removeProduct, updateFormProduct } =
     useProduct();
   const {
     initialValues,
     modalEdit,
     setModalEdit,
     handleEdit,
-    updateFormProduct,
   } = useFormProduct();
   const [activeFilter, setActiveFilter] = useState<number>(0);
   const displayedProducts = activeFilter === 0 ? products : productsInactive;
