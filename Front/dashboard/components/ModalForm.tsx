@@ -27,7 +27,8 @@ import { useState } from "react";
 interface ModalEditFormProps {
   open: boolean;
   setOpen: (open: boolean) => void;
-  onSubmit: (id: number, data: ProductFormData) => void;
+  onUpdate: (id: number, data: ProductFormData) => void;
+  onCreate: (data: ProductFormData) => void;
   initialValues?: Product;
   loadProduct?: (id: number) => Promise<void>;
 }
@@ -35,7 +36,8 @@ function ModalForm({
   open,
   setOpen,
   initialValues,
-  onSubmit,
+  onUpdate,
+  onCreate,
 }: ModalEditFormProps) {
   const [id_product, setId_product] = useState<number | null>(
     initialValues?.id_product ?? null,
@@ -52,16 +54,19 @@ function ModalForm({
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    if (id_product === null) return;
-
     const data = {
-      name: name,
-      description: description,
-      stock: stock,
+      name,
+      description,
+      stock,
       id_categoria: Number(id_categoria) || null,
     };
 
-    onSubmit(id_product, data);
+    if (id_product === null) {
+      onCreate(data); // crear
+    } else {
+      onUpdate(id_product, data); // editar
+    }
+
     setOpen(false);
   };
 

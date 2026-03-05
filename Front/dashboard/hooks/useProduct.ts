@@ -1,4 +1,4 @@
-import { useState, useEffect, use } from "react";
+import { useState, useEffect } from "react";
 import type { Product } from "../types/product.ts";
 import type { ProductFormData } from "../types/productForm.ts";
 import {
@@ -6,6 +6,7 @@ import {
   getProductsInactivos,
   deleteProduct,
   updateProduct,
+  createProduct,
   activateProduct,
 } from "../api/product.api";
 
@@ -72,11 +73,18 @@ export function useProduct() {
     );
   };
 
+  const createFormProduct = async (data: ProductFormData) => {
+    const newProduct = await createProduct(data);
+
+    setProducts((prev) => [...prev, newProduct]);
+  };
+
   return {
     products,
     productsInactive,
     removeProduct,
     activeProduct,
     updateFormProduct,
+    createFormProduct,
   };
 }

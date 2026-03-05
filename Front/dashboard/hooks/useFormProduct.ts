@@ -1,7 +1,5 @@
 import { useState } from "react";
-import {
-  getProductById,
-} from "../api/product.api";
+import { getProductById } from "../api/product.api";
 import type { Product } from "../types/product.ts";
 import { useProduct } from "@/hooks/useProduct";
 
@@ -25,10 +23,23 @@ export function useFormProduct() {
     setModalEdit(true);
   };
 
+  const handleCreate = () => {
+    setInitialValues({
+      id_product: null,
+      nombre: "",
+      descripcion: "",
+      stock: 0,
+      id_categoria: null,
+    });
+
+    setModalEdit(true);
+  };
+
   return {
     initialValues,
     modalEdit,
     setModalEdit,
     handleEdit,
+    handleCreate,
   };
 }

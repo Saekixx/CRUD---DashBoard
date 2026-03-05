@@ -1,4 +1,3 @@
-import type { Product } from "../types/product.ts";
 import type { ProductFormData } from "../types/productForm.ts";
 
 const CONST_URL = "http://localhost:3000";
@@ -33,9 +32,7 @@ export const getProductById = async (id: number) => {
   }
 };
 
-export const createProduct = async (
-  product: Omit<Product, "id" | "createdAt" | "updatedAt">,
-) => {
+export const createProduct = async (product: ProductFormData) => {
   try {
     const response = await fetch(`${CONST_URL}/products`, {
       method: "POST",
