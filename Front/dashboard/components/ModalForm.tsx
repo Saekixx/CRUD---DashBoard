@@ -62,11 +62,10 @@ function ModalForm({
     };
 
     if (id_product === null) {
-      onCreate(data); // crear
+      onCreate(data);
     } else {
-      onUpdate(id_product, data); // editar
+      onUpdate(id_product, data);
     }
-
     setOpen(false);
   };
 
