@@ -16,20 +16,28 @@ export function useProduct() {
 
   useEffect(() => {
     getProducts().then(setProducts);
-  }, [products]);
-
-  useEffect(() => {
     getProductsInactivos().then(setProductsInactive);
-  }, [productsInactive]);
+  }, []);
 
   const removeProduct = async (id: number) => {
+    const product = products.find((p) => p.id_product === id);
+    if (!product) return;
+
     await deleteProduct(id);
+
     setProducts((prev) => prev.filter((p) => p.id_product !== id));
+
+    setProductsInactive((prev) => [...prev, { ...product, activo: true }]);
   };
 
   const activeProduct = async (id: number) => {
+    const product = productsInactive.find((p) => p.id_product === id);
+    if (!product) return;
+
     await activateProduct(id);
+
     setProductsInactive((prev) => prev.filter((p) => p.id_product !== id));
+    setProducts((prev) => [...prev, { ...product, activo: false }]);
   };
 
   return {

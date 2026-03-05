@@ -6,9 +6,10 @@ import { useState } from "react";
 import { useProduct } from "@/hooks/useProduct";
 
 function page() {
-  const { products, productsInactive } = useProduct();
+  const { products, productsInactive, activeProduct, removeProduct } =
+    useProduct();
   const [activeFilter, setActiveFilter] = useState<number>(0);
-
+  const displayedProducts = activeFilter === 0 ? products : productsInactive;
   return (
     <div className="flex flex-col py-2">
       <div className="bg-cyan-700 rounded-2xl text-white text-3xl p-4 mb-4">
@@ -18,11 +19,13 @@ function page() {
       <FilterActive onChange={(value) => setActiveFilter(value)}></FilterActive>
 
       <div>
-        {activeFilter === 0 ? (
-          <TableProducts products={products} />
-        ) : (
-          <TableProducts products={productsInactive} />
-        )}
+        <TableProducts
+          key={activeFilter}
+          products={displayedProducts}
+          onRemove={removeProduct}
+          onActivate={activeProduct}
+          onEdit={() => {}}
+        />
       </div>
     </div>
   );

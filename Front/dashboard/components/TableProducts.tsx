@@ -16,11 +16,17 @@ import { Button } from "../components/ui/button";
 
 interface TableProductsProps {
   products: Product[];
+  onRemove: (id: number) => void;
+  onActivate: (id: number) => void;
+  onEdit: (id: number) => void;
 }
 
-function TableProducts({ products }: TableProductsProps) {
-  const { removeProduct, activeProduct } = useProduct();
-
+function TableProducts({
+  products,
+  onRemove,
+  onActivate,
+  onEdit,
+}: TableProductsProps) {
   const InfoTableBody = products.map((p) => {
     return (
       <TableRow key={p.id_product}>
@@ -37,7 +43,7 @@ function TableProducts({ products }: TableProductsProps) {
               variant="default"
               onClick={() => {
                 if (window.confirm("¿Estas seguro de activar el producto?")) {
-                  activeProduct(p.id_product);
+                  onActivate(p.id_product);
                 }
               }}
             >
@@ -48,7 +54,7 @@ function TableProducts({ products }: TableProductsProps) {
               variant="destructive"
               onClick={() => {
                 if (window.confirm("¿Estas seguro de inactivar el producto?")) {
-                  removeProduct(p.id_product);
+                  onRemove(p.id_product);
                 }
               }}
             >
