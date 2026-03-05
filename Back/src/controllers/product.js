@@ -17,12 +17,10 @@ const ProductController = {
       const products = await Product.getAllInactivos();
       res.status(200).json(products);
     } catch (error) {
-      res
-        .status(500)
-        .json({
-          message: "Error al obtener productos inactivos",
-          error: error.message,
-        });
+      res.status(500).json({
+        message: "Error al obtener productos inactivos",
+        error: error.message,
+      });
     }
   },
 
@@ -57,8 +55,17 @@ const ProductController = {
     }
 
     try {
-      await Product.create(name, description, stock, id_categoria);
-      res.status(201).json({ message: "Producto creado exitosamente" });
+      const result = await Product.create(
+        name,
+        description,
+        stock,
+        id_categoria,
+      );
+      res
+        .status(201)
+        .json({ message: "Producto creado exitosamente", product: result });
+
+      console.log("Producto creado:", result);
     } catch (error) {
       res
         .status(500)
@@ -96,12 +103,10 @@ const ProductController = {
 
       res.status(200).json({ message: "Producto actualizado exitosamente" });
     } catch (error) {
-      res
-        .status(500)
-        .json({
-          message: "Error al actualizar producto",
-          error: error.message,
-        });
+      res.status(500).json({
+        message: "Error al actualizar producto",
+        error: error.message,
+      });
     }
   },
 

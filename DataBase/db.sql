@@ -63,6 +63,7 @@ create procedure sp_getByIdProduct(_id int)
     
 create procedure sp_createProduct(_nombre char(40), _descripcion char(200), _stock int, _id_categoria int)
 	insert product(nombre,descripcion,stock,id_categoria) values (_nombre, _descripcion, _stock, _id_categoria);
+    select last_insert_id() as id_product;
 
 create procedure sp_updateProduct(_id_product int,_nombre char(40), _descripcion char(200), _stock int, _id_categoria int)
 	update product 
