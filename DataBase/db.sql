@@ -72,6 +72,8 @@ create procedure sp_updateProduct(_id_product int,_nombre char(40), _descripcion
 create procedure sp_deleteProduct(_id_product int)
 	update product set activo = 1 where id_product = _id_product;
     
+create procedure sp_activeProduct(_id_product int)
+	update product set activo = 0 where id_product = _id_product;
 
 
     
