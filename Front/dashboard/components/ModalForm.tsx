@@ -55,9 +55,9 @@ function ModalForm({
     if (id_product === null) return;
 
     const data = {
-      name,
-      description,
-      stock,
+      name: name,
+      description: description,
+      stock: stock,
       id_categoria: Number(id_categoria) || null,
     };
 
