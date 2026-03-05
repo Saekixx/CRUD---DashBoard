@@ -42,7 +42,7 @@ export const createProduct = async (product: ProductFormData) => {
       body: JSON.stringify(product),
     });
     const data = await response.json();
-    return data;
+    return data.id_product;
   } catch (error) {
     console.log(error);
   }

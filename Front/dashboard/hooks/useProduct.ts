@@ -4,6 +4,7 @@ import type { ProductFormData } from "../types/productForm.ts";
 import {
   getProducts,
   getProductsInactivos,
+  getProductById,
   deleteProduct,
   updateProduct,
   createProduct,
@@ -74,9 +75,13 @@ export function useProduct() {
   };
 
   const createFormProduct = async (data: ProductFormData) => {
-    const newProduct = await createProduct(data);
+    const id = await createProduct(data);
 
-    setProducts((prev) => [...prev, newProduct]);
+    const newProduct = await getProductById(id);
+
+    if (newProduct) {
+      setProducts((prev) => [...prev, newProduct]);
+    }
   };
 
   return {
