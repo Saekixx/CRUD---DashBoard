@@ -50,17 +50,13 @@ export const createProduct = async (
   }
 };
 
-export const updateProduct = async (
-  id: number,
-  product: Omit<Product, "id" | "createdAt" | "updatedAt">,
-) => {
+export const updateProduct = async (id: number) => {
   try {
-    const response = await fetch(`${CONST_URL}/products/${id}`, {
+    const response = await fetch(`${CONST_URL}/products/active/${id}`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify(product),
     });
     const data = await response.json();
     return data;
@@ -73,6 +69,18 @@ export const deleteProduct = async (id: number) => {
   try {
     const response = await fetch(`${CONST_URL}/products/${id}`, {
       method: "DELETE",
+    });
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const activateProduct = async (id: number) => {
+  try {
+    const response = await fetch(`${CONST_URL}/products/activate/${id}`, {
+      method: "POST",
     });
     const data = await response.json();
     return data;

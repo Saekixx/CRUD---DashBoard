@@ -7,6 +7,7 @@ import {
   createProduct,
   updateProduct,
   deleteProduct,
+  activateProduct,
 } from "../api/product.api";
 
 export function useProduct() {
@@ -14,25 +15,27 @@ export function useProduct() {
   const [productsInactive, setProductsInactive] = useState<Product[]>([]);
 
   useEffect(() => {
-    getProducts().then((data) => {
-      setProducts(data);
-    });
-  }, []);
+    getProducts().then(setProducts);
+  }, [products]);
 
   useEffect(() => {
-    getProductsInactivos().then((data) => {
-      setProductsInactive(data);
-    });
-  }, []);
+    getProductsInactivos().then(setProductsInactive);
+  }, [productsInactive]);
 
   const removeProduct = async (id: number) => {
     await deleteProduct(id);
     setProducts((prev) => prev.filter((p) => p.id_product !== id));
   };
 
+  const activeProduct = async (id: number) => {
+    await activateProduct(id);
+    setProductsInactive((prev) => prev.filter((p) => p.id_product !== id));
+  };
+
   return {
     products,
     productsInactive,
     removeProduct,
+    activeProduct,
   };
 }

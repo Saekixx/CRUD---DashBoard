@@ -19,7 +19,7 @@ interface TableProductsProps {
 }
 
 function TableProducts({ products }: TableProductsProps) {
-  const { removeProduct } = useProduct();
+  const { removeProduct, activeProduct } = useProduct();
 
   const InfoTableBody = products.map((p) => {
     return (
@@ -32,16 +32,29 @@ function TableProducts({ products }: TableProductsProps) {
         <TableCell>{p.activo ? "No" : "Si"}</TableCell>
         <TableCell className="flex gap-2">
           <Button variant="warning">Editar</Button>
-          <Button
-            variant="destructive"
-            onClick={() => {
-              if (window.confirm("¿Estas seguro de inactivar el producto?")) {
-                removeProduct(p.id_product);
-              }
-            }}
-          >
-            Eliminar
-          </Button>
+          {p.activo ? (
+            <Button
+              variant="default"
+              onClick={() => {
+                if (window.confirm("¿Estas seguro de activar el producto?")) {
+                  activeProduct(p.id_product);
+                }
+              }}
+            >
+              Activar
+            </Button>
+          ) : (
+            <Button
+              variant="destructive"
+              onClick={() => {
+                if (window.confirm("¿Estas seguro de inactivar el producto?")) {
+                  removeProduct(p.id_product);
+                }
+              }}
+            >
+              Eliminar
+            </Button>
+          )}
         </TableCell>
       </TableRow>
     );

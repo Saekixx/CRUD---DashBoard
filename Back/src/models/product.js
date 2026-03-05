@@ -40,7 +40,7 @@ class Product {
   }
 
   static async activate(id) {
-    return await db.query("CALL sp_activateProduct(?)", [id]);
+    return await db.query("CALL sp_activeProduct(?)", [id]);
   }
 }
 
