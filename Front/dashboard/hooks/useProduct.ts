@@ -3,9 +3,6 @@ import type { Product } from "../types/product.ts";
 import {
   getProducts,
   getProductsInactivos,
-  getProductById,
-  createProduct,
-  updateProduct,
   deleteProduct,
   activateProduct,
 } from "../api/product.api";

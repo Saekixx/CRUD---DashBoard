@@ -4,28 +4,27 @@ import {
   Table,
   TableHeader,
   TableBody,
-  TableFooter,
   TableHead,
   TableRow,
   TableCell,
   TableCaption,
 } from "../components/ui/table";
 import type { Product } from "../types/product";
-import { useProduct } from "../hooks/useProduct";
 import { Button } from "../components/ui/button";
+
 
 interface TableProductsProps {
   products: Product[];
   onRemove: (id: number) => void;
   onActivate: (id: number) => void;
-  onEdit: (id: number) => void;
+  showModal: (id: number) => void;
 }
 
 function TableProducts({
   products,
   onRemove,
   onActivate,
-  onEdit,
+  showModal,
 }: TableProductsProps) {
   const InfoTableBody = products.map((p) => {
     return (
@@ -37,12 +36,21 @@ function TableProducts({
         <TableCell>{p.Categoria}</TableCell>
         <TableCell>{p.activo ? "No" : "Si"}</TableCell>
         <TableCell className="flex gap-2">
-          <Button variant="warning">Editar</Button>
+          <Button
+            variant="warning"
+            onClick={() => {
+              if (p.id_product === null) return;
+              showModal(p.id_product);
+            }}
+          >
+            Editar
+          </Button>
           {p.activo ? (
             <Button
               variant="default"
               onClick={() => {
                 if (window.confirm("¿Estas seguro de activar el producto?")) {
+                  if (p.id_product === null) return;
                   onActivate(p.id_product);
                 }
               }}
@@ -54,6 +62,7 @@ function TableProducts({
               variant="destructive"
               onClick={() => {
                 if (window.confirm("¿Estas seguro de inactivar el producto?")) {
+                  if (p.id_product === null) return;
                   onRemove(p.id_product);
                 }
               }}

@@ -1,4 +1,5 @@
 import type { Product } from "../types/product.ts";
+import type { ProductFormData } from "../types/productForm.ts";
 
 const CONST_URL = "http://localhost:3000";
 
@@ -50,18 +51,24 @@ export const createProduct = async (
   }
 };
 
-export const updateProduct = async (id: number) => {
+export const updateProduct = async (id: number, product: ProductFormData) => {
   try {
-    const response = await fetch(`${CONST_URL}/products/active/${id}`, {
+    const response = await fetch(`${CONST_URL}/products/${id}`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
       },
+      body: JSON.stringify(product),
     });
+
+    if (!response.ok) {
+      throw new Error("Error al actualizar el producto");
+    }
+
     const data = await response.json();
     return data;
   } catch (error) {
-    console.log(error);
+    console.error(error);
   }
 };
 
