@@ -48,6 +48,16 @@ class Product {
     const [rows] = await db.query("CALL sp_Dashboard_ResumenInventario");
     return rows[0];
   }
+
+  static async ultimoProductoIngresado() {
+    const [rows] = await db.query("CALL sp_Producto_UltimoInsertado");
+    return rows[0];
+  }
+
+  static async ultimoProductoModificado() {
+    const [rows] = await db.query("CALL sp_Producto_UltimoModificado");
+    return rows[0];
+  }
 }
 
 export default Product;

@@ -16,7 +16,7 @@ create table product(
     id_categoria int,
     activo tinyint(1) default 0, -- 1 = activo  0 = inactivo
     create_at timestamp default current_timestamp,
-    update_at timestamp default current_timestamp,
+    update_at timestamp default current_timestamp on update current_timestamp,
     constraint fk_categoria foreign key (id_categoria) 
     references Categoria(id_categoria)
 );
@@ -95,6 +95,28 @@ create procedure sp_Dashboard_ResumenInventario()
 		cast(sum(stock)as unsigned) AS StockTotal
         from product;
 	end  //
+DELIMITER ;
+
+DELIMITER //
+create procedure sp_Producto_UltimoInsertado()
+begin
+	select p.*, c.nombre 
+    from product p
+    join categoria c on p.id_categoria = c.id_categoria
+    order by create_at desc, id_product desc
+    limit 1;
+end //
+DELIMITER ;
+
+DELIMITER //
+create procedure sp_Producto_UltimoModificado()
+begin
+	select p.*, c.nombre 
+    from product p
+    join categoria c on p.id_categoria = c.id_categoria
+    order by update_at desc, id_product desc
+    limit 1;
+end //
 DELIMITER ;
 
 
