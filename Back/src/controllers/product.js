@@ -77,7 +77,7 @@ const ProductController = {
   updateProduct: async (req, res) => {
     const { id } = req.params;
     const { name, description, stock, id_categoria } = req.body;
-    if (!name || !description || !stock || !id_categoria) {
+    if (!name || !description || !id_categoria) {
       return res
         .status(400)
         .json({ message: "Todos los campos son requeridos" });
