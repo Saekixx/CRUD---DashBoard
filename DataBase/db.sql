@@ -119,6 +119,19 @@ begin
 end //
 DELIMITER ;
 
+DELIMITER //
+create procedure sp_ProductosPorCategoria()
+begin
+	select 
+        id_categoria,
+        cast(sum(stock)as unsigned) as total_stock
+    from product
+    group by id_categoria;
+end //
+DELIMITER ;
+
+
+
 
     
 

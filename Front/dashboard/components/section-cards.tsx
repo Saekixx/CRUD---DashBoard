@@ -8,6 +8,8 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 
+import { ChartBarLabel } from "@/components/CharBarLabel";
+
 import { useDashboard } from "@/hooks/useDashboard";
 
 export function SectionCards() {
@@ -80,7 +82,7 @@ export function SectionCards() {
         </Card>
       </div>
 
-      <div className="grid grid-cols-2 gap-4 px-4 lg:px-6 w-full">
+      <div className="grid grid-cols-2 gap-4 px-4 lg:px-6 w-full pb-3">
         <Card className="@container/card">
           <CardHeader>
             <CardDescription>Ultimo Producto Ingresado</CardDescription>
@@ -124,6 +126,10 @@ export function SectionCards() {
             </div>
           </CardFooter>
         </Card>
+      </div>
+
+      <div className="grid grid-cols-2 gap-4 px-4 lg:px-6 w-full pb-3">
+        <ChartBarLabel />
       </div>
     </>
   );
