@@ -83,6 +83,18 @@ create procedure sp_deleteProduct(_id_product int)
 create procedure sp_activeProduct(_id_product int)
 	update product set activo = 0 where id_product = _id_product;
 
+DELIMITER //
+create procedure sp_Dashboard_ResumenInventario()
+	begin
+	select
+		count(*) AS TotalProductos,
+		sum(case when activo = 1 then 1 else 0 end) as ProductosActivos,
+		sum(case when activo = 0 then 1 else 0 end) as ProductosInactivos,
+		sum(stock) AS StockTotal 
+        from product;
+	end  //
+DELIMITER ;
+
 
     
 
