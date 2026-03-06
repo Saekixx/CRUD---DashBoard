@@ -1,9 +1,16 @@
+import { SectionCards } from "@/components/section-cards";
+
 function page() {
   return (
-    <div>
-        <h1>Dashboard Home</h1>
+    <div className="p-2 bg-slate-50 overflow-y-auto">
+      <div className="max-w-7xl mx-auto">
+        <div className="bg-cyan-700 rounded-2xl text-white text-3xl p-4 mb-4">
+          <h1>Dashboard</h1>
+        </div>
+        <SectionCards />
+      </div>
     </div>
-  )
+  );
 }
 
-export default page
+export default page;
