@@ -43,6 +43,11 @@ class Product {
   static async activate(id) {
     return await db.query("CALL sp_activeProduct(?)", [id]);
   }
+
+  static async resumenInventario() {
+    const [rows] = await db.query("CALL sp_Dashboard_ResumenInventario");
+    return rows[0];
+  }
 }
 
 export default Product;
