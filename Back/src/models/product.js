@@ -58,6 +58,11 @@ class Product {
     const [rows] = await db.query("CALL sp_Producto_UltimoModificado");
     return rows[0];
   }
+
+  static async productosPorCategoria() {
+    const [rows] = await db.query("CALL sp_ProductosPorCategoria");
+    return rows;
+  }
 }
 
 export default Product;

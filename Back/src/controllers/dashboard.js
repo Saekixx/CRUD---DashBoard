@@ -35,6 +35,18 @@ const DashboardController = {
       });
     }
   },
+
+  getProductosPorCategoria: async (req, res) => {
+    try {
+      const productos = await Product.productosPorCategoria();
+      res.status(200).json(productos);
+    } catch (error) {
+      res.status(500).json({
+        message: "Error al obtener productos por categoría",
+        error: error.message,
+      });
+    }
+  },
 };
 
 export default DashboardController;

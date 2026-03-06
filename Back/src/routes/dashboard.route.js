@@ -16,4 +16,9 @@ DashboardRouter.get(
   DashboardController.getUltimoProductoModificado,
 );
 
+DashboardRouter.get(
+  "/productos-por-categoria",
+  DashboardController.getProductosPorCategoria,
+);
+
 export default DashboardRouter;
