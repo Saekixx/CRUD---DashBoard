@@ -92,3 +92,13 @@ export const activateProduct = async (id: number) => {
     console.log(error);
   }
 };
+
+export const getResumenInventario = async () => {
+  try {
+    const response = await fetch(`${CONST_URL}/dashboard/resumen-inventario`);
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    console.log(error);
+  }
+};
