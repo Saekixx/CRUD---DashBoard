@@ -102,3 +102,27 @@ export const getResumenInventario = async () => {
     console.log(error);
   }
 };
+
+export const getUltimoProductoInsertado = async () => {
+  try {
+    const response = await fetch(
+      `${CONST_URL}/dashboard/ultimo-producto-ingresado`,
+    );
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const getUltimoProductoModificado = async () => {
+  try {
+    const response = await fetch(
+      `${CONST_URL}/dashboard/ultimo-producto-modificado`,
+    );
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    console.log(error);
+  }
+};

@@ -100,7 +100,7 @@ DELIMITER ;
 DELIMITER //
 create procedure sp_Producto_UltimoInsertado()
 begin
-	select p.*, c.nombre 
+	select p.*, c.nombre as nombreCategoria
     from product p
     join categoria c on p.id_categoria = c.id_categoria
     order by create_at desc, id_product desc
@@ -111,7 +111,7 @@ DELIMITER ;
 DELIMITER //
 create procedure sp_Producto_UltimoModificado()
 begin
-	select p.*, c.nombre 
+	select p.*, c.nombre as nombreCategoria
     from product p
     join categoria c on p.id_categoria = c.id_categoria
     order by update_at desc, id_product desc

@@ -1,10 +1,7 @@
 "use client";
-import { IconTrendingDown, IconTrendingUp } from "@tabler/icons-react";
 
-import { Badge } from "@/components/ui/badge";
 import {
   Card,
-  CardAction,
   CardDescription,
   CardFooter,
   CardHeader,
@@ -14,7 +11,7 @@ import {
 import { useDashboard } from "@/hooks/useDashboard";
 
 export function SectionCards() {
-  const { resumenInventario } = useDashboard();
+  const { resumenInventario, prodInsert, prodModif } = useDashboard();
 
   return (
     <>
@@ -82,36 +79,48 @@ export function SectionCards() {
           </CardFooter>
         </Card>
       </div>
+
       <div className="grid grid-cols-2 gap-4 px-4 lg:px-6 w-full">
         <Card className="@container/card">
           <CardHeader>
             <CardDescription>Ultimo Producto Ingresado</CardDescription>
             <CardTitle className="text-2xl font-semibold tabular-nums @[250px]/card:text-3xl">
-              PRODUCTO INSERTADO POR MOSTRAR
+              {prodInsert?.nombre}
             </CardTitle>
           </CardHeader>
           <CardFooter className="flex-col items-start gap-1.5 text-sm">
             <div className="line-clamp-1 flex gap-2 font-medium">
-              Stock total de Productos
+              Ingresado:{" "}
+              {new Date(prodInsert?.create_at || "").toLocaleString()}
             </div>
             <div className="text-muted-foreground">
-              Stock total en el inventario
+              Categoria: {prodInsert?.nombreCategoria}
+              <br />
+              Descripcion: {prodInsert?.descripcion}
+              <br />
+              Stock: {prodInsert?.stock}
             </div>
           </CardFooter>
         </Card>
+
         <Card className="@container/card">
           <CardHeader>
             <CardDescription>Ultimo Producto Modificado</CardDescription>
             <CardTitle className="text-2xl font-semibold tabular-nums @[250px]/card:text-3xl">
-              PRODUCTO MODIFICADO POR MOSTRAR
+              {prodModif?.nombre}
             </CardTitle>
           </CardHeader>
           <CardFooter className="flex-col items-start gap-1.5 text-sm">
             <div className="line-clamp-1 flex gap-2 font-medium">
-              Stock total de Productos
+              Modificado:{" "}
+              {new Date(prodModif?.update_at || "").toLocaleString()}
             </div>
             <div className="text-muted-foreground">
-              Stock total en el inventario
+              Categoria: {prodModif?.nombreCategoria}
+              <br />
+              Descripcion: {prodModif?.descripcion}
+              <br />
+              Stock: {prodModif?.stock}
             </div>
           </CardFooter>
         </Card>
