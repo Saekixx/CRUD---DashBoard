@@ -9,7 +9,7 @@ import {
 } from "@/components/ui/card";
 
 import { ChartBarLabel } from "@/components/CharBarLabel";
-
+import { ChartAreaStacked } from "@/components/ChartAreaStacked";
 import { useDashboard } from "@/hooks/useDashboard";
 
 export function SectionCards() {
@@ -130,6 +130,7 @@ export function SectionCards() {
 
       <div className="grid grid-cols-2 gap-4 px-4 lg:px-6 w-full pb-3">
         <ChartBarLabel />
+        <ChartAreaStacked />
       </div>
     </>
   );

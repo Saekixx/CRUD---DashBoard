@@ -47,6 +47,18 @@ const DashboardController = {
       });
     }
   },
+
+  getTopProductosMasVendidos: async (req, res) => {
+    try {
+      const productos = await Product.getTopProductsCategoria();
+      res.status(200).json(productos);
+    } catch (error) {
+      res.status(500).json({
+        message: "Error al obtener productos mas vendidos",
+        error: error.message,
+      });
+    }
+  },
 };
 
 export default DashboardController;

@@ -21,4 +21,9 @@ DashboardRouter.get(
   DashboardController.getProductosPorCategoria,
 );
 
+DashboardRouter.get(
+  "/top-productos-mas-vendidos",
+  DashboardController.getTopProductosMasVendidos,
+);
+
 export default DashboardRouter;

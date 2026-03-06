@@ -63,6 +63,11 @@ class Product {
     const [rows] = await db.query("CALL sp_ProductosPorCategoria");
     return rows;
   }
+
+  static async getTopProductsCategoria() {
+    const [rows] = await db.query("CALL sp_ProductosCantidadPorCategoria");
+    return rows;
+  }
 }
 
 export default Product;
