@@ -6,11 +6,13 @@ import {
   getUltimoProductoInsertado,
   getUltimoProductoModificado,
   getProductosPorCategoria,
+  getTopProductosCategoria,
 } from "../api/product.api";
 import type {
   invertarioResumen,
   ProdAt,
   TotalStock,
+  TopProduct,
 } from "../types/dashboard.ts";
 export function useDashboard() {
   const [resumenInventario, setResumenInventario] =
@@ -19,6 +21,9 @@ export function useDashboard() {
   const [prodModif, setProdModif] = useState<ProdAt>();
   const [productosPorCategoria, setProductosPorCategoria] = useState<
     TotalStock[]
+  >([]);
+  const [topProductosCategoria, setTopProductosCategoria] = useState<
+    TopProduct[]
   >([]);
 
   useEffect(() => {
@@ -37,6 +42,10 @@ export function useDashboard() {
     getProductosPorCategoria().then((data) => {
       setProductosPorCategoria(data);
     });
+
+    getTopProductosCategoria().then((data) => {
+      setTopProductosCategoria(data);
+    });
   }, []);
 
   return {
@@ -44,5 +53,6 @@ export function useDashboard() {
     prodInsert,
     prodModif,
     productosPorCategoria,
+    topProductosCategoria,
   };
 }

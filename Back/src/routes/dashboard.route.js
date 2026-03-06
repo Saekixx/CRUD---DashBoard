@@ -22,7 +22,7 @@ DashboardRouter.get(
 );
 
 DashboardRouter.get(
-  "/top-productos-mas-vendidos",
+  "/top-productos-categoria",
   DashboardController.getTopProductosMasVendidos,
 );
 

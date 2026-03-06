@@ -1,6 +1,5 @@
 "use client";
 
-import { TrendingUp } from "lucide-react";
 import { Area, AreaChart, CartesianGrid, XAxis } from "recharts";
 
 import {
@@ -17,23 +16,23 @@ import {
   type ChartConfig,
 } from "@/components/ui/chart";
 
-export const description = "A stacked area chart";
-
-const chartData = [
-  { categoria: "Electronica", total: 186 },
-  { categoria: "Hogar", total: 305 },
-  { categoria: "Ropa", total: 237 },
-  { categoria: "Deporte", total: 73 },
-];
-
-const chartConfig = {
-  total: {
-    label: "Total",
-    color: "var(--chart-1)",
-  },
-} satisfies ChartConfig;
+import { useDashboard } from "@/hooks/useDashboard";
 
 export function ChartAreaStacked() {
+  const { topProductosCategoria } = useDashboard();
+
+  const chartData = topProductosCategoria.map((p) => ({
+    categoria: p.categoria,
+    total: p.total,
+  }));
+
+  const chartConfig = {
+    total: {
+      label: "Total",
+      color: "var(--chart-1)",
+    },
+  } satisfies ChartConfig;
+
   return (
     <Card>
       <CardHeader>
@@ -56,7 +55,8 @@ export function ChartAreaStacked() {
               tickLine={false}
               axisLine={false}
               tickMargin={8}
-              tickFormatter={(value) => value.slice(0, 3)}
+              interval={0}
+              tickFormatter={(value: string) => value.slice(0, 3)}
             />
             <ChartTooltip
               cursor={false}

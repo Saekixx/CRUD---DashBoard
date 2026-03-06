@@ -21,3 +21,8 @@ export interface TotalStock {
   id_categoria: number;
   total_stock: number;
 }
+
+export interface TopProduct {
+  categoria: string;
+  total: number;
+}

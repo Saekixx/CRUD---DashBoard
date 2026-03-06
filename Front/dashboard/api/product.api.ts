@@ -138,3 +138,15 @@ export const getProductosPorCategoria = async () => {
     console.log(error);
   }
 };
+
+export const getTopProductosCategoria = async () => {
+  try {
+    const response = await fetch(
+      `${CONST_URL}/dashboard/top-productos-categoria`,
+    );
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    console.log(error);
+  }
+};
