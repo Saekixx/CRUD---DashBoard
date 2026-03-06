@@ -130,6 +130,18 @@ begin
 end //
 DELIMITER ;
 
+DELIMITER //
+create procedure sp_ProductosCantidadPorCategoria()
+begin
+	select 
+		c.nombre as categoria,
+        cast(count(p.id_product) as unsigned) as total
+	from product p
+    join categoria c on p.id_categoria = c.id_categoria
+    group by c.nombre;
+end //
+DELIMITER ;
+
 
 
 
