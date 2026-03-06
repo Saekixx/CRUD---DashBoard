@@ -16,3 +16,8 @@ export interface ProdAt {
   create_at: string;
   update_at: string;
 }
+
+export interface TotalStock {
+  id_categoria: number;
+  total_stock: number;
+}

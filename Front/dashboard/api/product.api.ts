@@ -126,3 +126,15 @@ export const getUltimoProductoModificado = async () => {
     console.log(error);
   }
 };
+
+export const getProductosPorCategoria = async () => {
+  try {
+    const response = await fetch(
+      `${CONST_URL}/dashboard/productos-por-categoria`,
+    );
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    console.log(error);
+  }
+};

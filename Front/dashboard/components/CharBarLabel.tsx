@@ -1,6 +1,6 @@
 "use client";
 import { Bar, BarChart, CartesianGrid, LabelList, XAxis } from "recharts";
-
+import { Cell } from "recharts";
 import {
   Card,
   CardContent,
@@ -14,34 +14,50 @@ import {
   ChartTooltipContent,
   type ChartConfig,
 } from "@/components/ui/chart";
-
-const chartData = [
-  { categoria: "Electronica", stock: 186, fill: "var(--chart-1)" },
-  { categoria: "Hogar", stock: 305, fill: "var(--chart-2)" },
-  { categoria: "Ropa", stock: 237, fill: "var(--chart-3)" },
-  { categoria: "Deportes", stock: 73, fill: "var(--chart-4)" },
-];
-
-const chartConfig = {
-  electronica: {
-    label: "Electronica",
-    color: "var(--chart-1)",
-  },
-  hogar: {
-    label: "Hogar",
-    color: "var(--chart-2)",
-  },
-  ropa: {
-    label: "Ropa",
-    color: "var(--chart-3)",
-  },
-  deportes: {
-    label: "Deportes",
-    color: "var(--chart-4)",
-  },
-} satisfies ChartConfig;
+import { useDashboard } from "@/hooks/useDashboard";
 
 export function ChartBarLabel() {
+  const { productosPorCategoria } = useDashboard();
+
+  const categorias: Record<number, string> = {
+    1: "Electronica",
+    2: "Hogar",
+    3: "Ropa",
+    4: "Deportes",
+  };
+
+  const colores: Record<number, string> = {
+    1: "var(--chart-1)",
+    2: "var(--chart-2)",
+    3: "var(--chart-3)",
+    4: "var(--chart-4)",
+  };
+
+  const chartData = productosPorCategoria.map((item) => ({
+    categoria: categorias[item.id_categoria],
+    stock: item.total_stock,
+    color: colores[item.id_categoria],
+  }));
+
+  const chartConfig = {
+    electronica: {
+      label: "Electronica",
+      color: "var(--chart-1)",
+    },
+    hogar: {
+      label: "Hogar",
+      color: "var(--chart-2)",
+    },
+    ropa: {
+      label: "Ropa",
+      color: "var(--chart-3)",
+    },
+    deportes: {
+      label: "Deportes",
+      color: "var(--chart-4)",
+    },
+  } satisfies ChartConfig;
+
   return (
     <Card>
       <CardHeader>
@@ -60,12 +76,20 @@ export function ChartBarLabel() {
               axisLine={false}
             />
 
-            <ChartTooltip
-              cursor={false}
-              content={<ChartTooltipContent hideLabel />}
-            />
+            <ChartTooltip cursor={false} content={<ChartTooltipContent />} />
 
-            <Bar dataKey="stock" fill="var(--chart-1)" radius={8} barSize={60}>
+            <Bar dataKey="stock" radius={8} barSize={60}>
+              {chartData.map((entry, index) => (
+                <Cell key={`cell-${index}`} fill={entry.color} />
+              ))}
+
+              <LabelList
+                dataKey="stock"
+                position="top"
+                offset={12}
+                className="fill-foreground"
+                fontSize={12}
+              />
               <LabelList
                 dataKey="stock"
                 position="top"
