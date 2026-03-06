@@ -36,8 +36,10 @@ export function ChartAreaStacked() {
   return (
     <Card>
       <CardHeader>
-        <CardTitle>Productos por Categoria</CardTitle>
-        <CardDescription>Cuantos Productos hay por Categoria</CardDescription>
+        <CardTitle>Productos por Categoria Activos</CardTitle>
+        <CardDescription>
+          Cuantos Productos Activos hay por Categoria
+        </CardDescription>
       </CardHeader>
       <CardContent>
         <ChartContainer config={chartConfig}>
